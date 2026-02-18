@@ -4,6 +4,8 @@ import path from "path";
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
+import mongoose from "mongoose";
+import { ENV } from "./lib/env.js";
 
 
 // Create Express app
@@ -15,7 +17,7 @@ dotenv.config();// Load environment variables from .env file
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = ENV.PORT || 3000;
 
 
 app.use(express.json());//middleware to parse JSON bodies(request body)
@@ -27,7 +29,7 @@ app.use("/api/messages", messageRoutes);
 
 //deployment ready
 
-if(process.env.NODE_ENV === "production") {
+if(ENV.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
 
     app.get("*", (req, res) => {
@@ -40,7 +42,9 @@ const startServer = async () => {
     try {
         await connectDB();
         const server = app.listen(PORT, () => {
+           console.log("Database name:", mongoose.connection.name);
             console.log('Server is running on port ' + PORT);
+            
         });
         server.on('error', (error) => {
             console.error('Server error:', error);
