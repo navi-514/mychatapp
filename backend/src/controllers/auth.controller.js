@@ -43,8 +43,11 @@ export const signup =  async(req, res) => {
     });
     // Generate a JWT token and set it as an HTTP-only cookie in the response
     if(newUser) {
-        generateToken(newUser._id, res);
-        await newUser.save();
+        //generateToken(newUser._id, res);
+       // await newUser.save();
+
+        const savedUser = await newUser.save();
+        generateToken(savedUser._id, res);
 
 
         return res.status(201).json({
