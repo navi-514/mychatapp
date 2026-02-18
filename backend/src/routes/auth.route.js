@@ -1,11 +1,11 @@
 import express from "express";
-import dotenv from "dotenv";
 
+import { signup } from "../controllers/auth.controller.js";
+
+// src/routes/auth.route.js
 const router = express.Router();
 
-router.get('/signup', (req, res) => {
-    res.send({ message: 'Signup endpoint' });
-});
+router.post('/signup',signup);
 
 router.get('/login', (req, res) => {
     res.send({ message: 'Login endpoint' });
