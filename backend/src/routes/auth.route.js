@@ -15,7 +15,7 @@ router.post('/login', login);
 
 router.post('/logout', logout);
 
-router.post("/update-profile-pic", protectRoute, updateProfile);
+router.put("/update-profile-pic", protectRoute, updateProfile);
 
 
 router.get("/check", protectRoute, (req, res) => {

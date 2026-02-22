@@ -22,7 +22,8 @@ dotenv.config();// Load environment variables from .env file
 const PORT = ENV.PORT || 3000;
 
 
-app.use(express.json());//middleware to parse JSON bodies(request body)
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true })); // Enable CORS for the frontend URL with credentials
 app.use(cookieParser());//middleware to parse cookies from incoming requests
 
