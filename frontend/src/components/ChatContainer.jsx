@@ -12,9 +12,12 @@ function ChatContainer() {
     selectedUser,
     getMessagesByUserId,
     messages,
+    isMessagesLoading,
+    
    
   } = useChatStore();
   const { authUser } = useAuthStore();
+  const messageEndRef = useRef(null);
 
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);},
@@ -51,6 +54,7 @@ function ChatContainer() {
                 </div>
               </div>
             ))}
+            <div ref={messageEndRef} />
           </div>
         ) : (
           <NoChatHistoryPlaceholder name={selectedUser.fullName}/>
